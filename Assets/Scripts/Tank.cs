@@ -32,7 +32,6 @@ public class Tank : MonoBehaviour
 
         if (Input.GetKeyDown(shootKey))
         {
-            print("Shoot");
             Instantiate(bullet, shootPoint.position, shootPoint.rotation);
         }
     }
