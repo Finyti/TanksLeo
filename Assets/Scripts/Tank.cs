@@ -26,7 +26,8 @@ public class Tank : MonoBehaviour
         var hor = Input.GetAxis(horizontalAxis);
         var ver = Input.GetAxis(verticalAxis);
 
-        transform.position += transform.forward * speed * Time.deltaTime * ver;
+        Rigidbody rigidbody = GetComponent<Rigidbody>();
+        rigidbody.velocity = transform.forward * speed * ver;
 
         transform.Rotate(0, rotateSpeed * Time.deltaTime * hor, 0);
 
@@ -34,5 +35,6 @@ public class Tank : MonoBehaviour
         {
             Instantiate(bullet, shootPoint.position, shootPoint.rotation);
         }
+
     }
 }
