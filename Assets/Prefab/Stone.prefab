@@ -64,6 +64,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Stone
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 8ee276c6193b74eb4843b23e525daf92, type: 3}
+      propertyPath: m_TagString
+      value: boom
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -74,6 +78,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 8ee276c6193b74eb4843b23e525daf92, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8104979790994935213}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 8ee276c6193b74eb4843b23e525daf92, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8533784819367721805}
   m_SourcePrefab: {fileID: 100100000, guid: 8ee276c6193b74eb4843b23e525daf92, type: 3}
 --- !u!1 &8604911484023495100 stripped
 GameObject:
@@ -130,3 +137,17 @@ CapsuleCollider:
   m_Height: 2.903164
   m_Direction: 1
   m_Center: {x: 0, y: 1.1433337, z: 0}
+--- !u!114 &8533784819367721805
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8604911484023495100}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 691258d260489144f809fbc7388a25d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hp: 30
+  particleType: {fileID: 5605791579921698875, guid: e220919b9a3d78741b03c4179cffcd1f, type: 3}

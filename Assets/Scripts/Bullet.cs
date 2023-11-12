@@ -8,14 +8,20 @@ public class Bullet : MonoBehaviour
 {
 
     public float bulletSpeed = 15;
+    public float Damage = 20;
 
-    public GameObject stoneParticle;
-    public GameObject mushroomParticle;
+    public int hitParticleCount = 3;
+    public int killParticleCount = 9;
+
+    public GameObject particleType;
     public GameObject mark;
     public AudioClip explosionSound;
+    public AudioClip shotSound;
     void Start()
     {
         Destroy(gameObject, 3f);
+        
+        AudioSource.PlayClipAtPoint(shotSound, gameObject.transform.position);
     }
 
     void Update()
@@ -24,29 +30,50 @@ public class Bullet : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
-
-        if (collision.gameObject.name.Contains("Stone"))
+        if (collision.gameObject.tag == "boom")
         {
+            var hp = collision.gameObject.GetComponent<Health>();
+            hp.DamageApply(Damage);
+            particleType = hp.particleType;
+
+
             AudioSource.PlayClipAtPoint(explosionSound, collision.gameObject.transform.position);
-
-            Destroy(collision.gameObject);
             Destroy(gameObject);
-
-            StoneParticleCreation(collision.gameObject.transform, stoneParticle, 5);
             Instantiate(mark, new Vector3(collision.gameObject.transform.position.x, collision.gameObject.transform.position.y + 0.1f,
-                collision.gameObject.transform.position.z), new Quaternion(0, Rand(0f, 360f), 0, 360));
-        }
-        if (collision.gameObject.name.Contains("Mushroom"))
-        {
-            AudioSource.PlayClipAtPoint(explosionSound, collision.gameObject.transform.position);
+            collision.gameObject.transform.position.z), new Quaternion(0, Rand(0f, 360f), 0, 360));
+            StoneParticleCreation(collision.gameObject.transform, particleType, hitParticleCount);
 
-            Destroy(collision.gameObject);
-            Destroy(gameObject);
+            if (hp.isDead())
+            {
+                Destroy(collision.gameObject);
+                StoneParticleCreation(collision.gameObject.transform, particleType, killParticleCount);
+            }
 
-            StoneParticleCreation(collision.gameObject.transform, mushroomParticle, 6);
-            Instantiate(mark, new Vector3(collision.gameObject.transform.position.x, collision.gameObject.transform.position.y + 0.1f,
-                collision.gameObject.transform.position.z), new Quaternion(0, Rand(0f, 360f), 0, 360));
+
+
         }
+        //if (collision.gameObject.name.Contains("Stone"))
+        //{
+        //    AudioSource.PlayClipAtPoint(explosionSound, collision.gameObject.transform.position);
+
+        //    Destroy(collision.gameObject);
+        //    Destroy(gameObject);
+
+        //    StoneParticleCreation(collision.gameObject.transform, stoneParticle, 5);
+        //    Instantiate(mark, new Vector3(collision.gameObject.transform.position.x, collision.gameObject.transform.position.y + 0.1f,
+        //        collision.gameObject.transform.position.z), new Quaternion(0, Rand(0f, 360f), 0, 360));
+        //}
+        //if (collision.gameObject.name.Contains("Mushroom"))
+        //{
+        //    AudioSource.PlayClipAtPoint(explosionSound, collision.gameObject.transform.position);
+
+        //    Destroy(collision.gameObject);
+        //    Destroy(gameObject);
+
+        //    StoneParticleCreation(collision.gameObject.transform, mushroomParticle, 6);
+        //    Instantiate(mark, new Vector3(collision.gameObject.transform.position.x, collision.gameObject.transform.position.y + 0.1f,
+        //        collision.gameObject.transform.position.z), new Quaternion(0, Rand(0f, 360f), 0, 360));
+        //}
     }
 
     private void StoneParticleCreation(Transform Transf, GameObject particle, int times)
@@ -62,4 +89,8 @@ public class Bullet : MonoBehaviour
     {
         return Random.Range(start, end);
     }
+
+
+
+    
 }
